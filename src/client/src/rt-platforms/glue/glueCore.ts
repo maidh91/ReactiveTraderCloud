@@ -17,15 +17,19 @@ export class Glue42Core implements Platform {
   }
 
   constructor() {
-    GlueWeb()
-      .then(glue => {
-        window.glue = glue;
-        registerWindowMethods()
-      })
-      .catch((e) => {
-        console.log(e)
-        throw new Error('Failed to init Glue42Web')
-      })
+    console.log(window.glue)
+    if (!window.glue) {
+      GlueWeb({ layouts: { autoSaveWindowContext: true, autoRestore: true } })
+        .then(glue => {
+          window.glue = glue;
+
+          registerWindowMethods()
+        })
+        .catch((e) => {
+          console.log(e)
+          throw new Error('Failed to init Glue42Web')
+        })
+    }
   }
 
   window = {

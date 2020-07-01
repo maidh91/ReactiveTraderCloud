@@ -20,6 +20,10 @@ module.exports = function override(config, env) {
       new CopyPlugin({
         patterns: [
           {
+            from: 'public/glue/*.js',
+            to: 'glue'
+          },
+          {
             from: 'public/manifest.json',
             to: 'manifest.json',
             transform(content) {

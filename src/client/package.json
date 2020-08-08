@@ -45,7 +45,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "./.eslintrc.json"
+      "./.eslintrc.js"
     ]
   },
   "license": "MIT",
@@ -64,13 +64,16 @@
     "ag-grid-community": "^21.2.2",
     "ag-grid-react": "^21.2.2",
     "audio-recorder-polyfill": "^0.1.6",
+    "axios": "^0.19.2",
     "d3": "3.5.12",
+    "intl": "^1.2.5",
     "lodash": "^4.17.19",
     "luxon": "^1.17.2",
     "numeral": "^2.0.6",
     "openfin-layouts": "1.2.0",
     "openfin-notifications": "0.11.1",
     "polished": "^3.4.1",
+    "prop-types": "^15.7.2",
     "query-string": "^6.8.2",
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
@@ -78,6 +81,7 @@
     "react-ga": "^2.7.0",
     "react-helmet": "^5.2.1",
     "react-hotkeys": "^2.0.0",
+    "react-intl-universal": "^2.3.2",
     "react-measure": "^2.3.0",
     "react-redux": "7.1.0",
     "react-router-dom": "^5.1.2",
@@ -91,6 +95,8 @@
     "reselect": "4.0.0",
     "ress": "^1.2.2",
     "rxjs": "6.1.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^1.1.1",
     "styled-components": "^5.0.1",
     "typeface-lato": "^0.0.54",
     "typeface-montserrat": "^0.0.54",

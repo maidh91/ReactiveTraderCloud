@@ -1,3 +1,6 @@
+/* eslint-disable */
+import 'semantic-ui-css/semantic.min.css'
+
 import MainRoute from './MainRoute'
 export default MainRoute
 

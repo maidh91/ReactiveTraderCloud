@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useCallback, useState, FC, MouseEvent } from 'react'
 import { GridApi } from 'ag-grid-community'
 import { flexStyle, PopoutIcon } from 'rt-components'
@@ -7,10 +8,13 @@ import BlotterToolbar from './toolbar/BlotterToolbar'
 import ExcelButton from './toolbar/ExcelButton'
 
 interface Props {
-  canPopout: boolean
-  onPopoutClick: (x: number, y: number) => void
-  onExportToExcelClick: () => void
-  gridApi?: GridApi
+  canPopout: boolean,
+  onPopoutClick: (x: number, y: number) => void,
+  onExportToExcelClick: () => void,
+  gridApi?: GridApi,
+  navItems: Object,
+  navItem: string,
+  setNavItem: (x: string) => void,
 }
 
 const BlotterHeaderStyle = styled('div')`
@@ -35,7 +39,40 @@ const BlotterRight = styled('div')`
 `
 
 const BlotterLeft = styled('div')`
+  display: flex;
   font-size: 0.9375rem;
+`
+
+const LiStyle = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  font-size: 14px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const NavItem = styled(LiStyle) <{ active: boolean }>`
+  list-style-type: none;
+  margin-left: 15px;
+
+  color: ${({ theme }) => theme.secondary.base};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 34px;
+  line-height: 34px;
+  opacity: ${({ active }) => (active ? '1' : '0.52')};
+  background: ${({ active, theme }) => (active ? theme.core.lightBackground : 'none')};
+  text-decoration: none;
+  padding: 5px;
+  min-width: 34px;
+  min-height: 34px;
+  text-align: center;
+  border-radius: 2px;
 `
 
 const Fill = styled.div`
@@ -43,7 +80,15 @@ const Fill = styled.div`
   height: 1rem;
 `
 
-const BlotterHeader: FC<Props> = ({ gridApi, canPopout, onExportToExcelClick, onPopoutClick }) => {
+const BlotterHeader: FC<Props> = ({
+  gridApi,
+  canPopout,
+  onExportToExcelClick,
+  onPopoutClick,
+  navItems,
+  navItem,
+  setNavItem,
+}) => {
   const popoutClickHandler = useCallback(
     (event: MouseEvent) => {
       onPopoutClick(event.screenX, event.screenY)
@@ -73,12 +118,18 @@ const BlotterHeader: FC<Props> = ({ gridApi, canPopout, onExportToExcelClick, on
   const removeAllFilters = useCallback(() => gridApi && gridApi.setFilterModel(null), [gridApi])
 
   const removeFilter = useCallback((key: string) => gridApi && gridApi.destroyFilter(key), [
-    gridApi
+    gridApi,
   ])
 
   return (
     <BlotterHeaderStyle>
-      <BlotterLeft>Trades</BlotterLeft>
+      <BlotterLeft>
+        {Object.keys(navItems).map(value => (
+          <NavItem key={value} active={navItem === value} onClick={() => setNavItem(value)}>
+            {navItems[value].text}
+          </NavItem>
+        ))}
+      </BlotterLeft>
       <BlotterRight>
         <ExcelButton onClick={onExportToExcelClick} />
         <BlotterToolbar

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import ReactGA from 'react-ga'
@@ -11,6 +12,7 @@ import { Router } from './data'
 import GlobalScrollbarStyle from './GlobalScrollbarStyle'
 import { createStore } from './store'
 import { AsyncReturnType } from 'rt-util/utilityTypes'
+import { LocaleProvider } from 'rt-intl'
 
 const MainRoute = () => {
   type Platform = AsyncReturnType<typeof getPlatformAsync>
@@ -65,18 +67,20 @@ const MainRoute = () => {
           href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
         />
       </Helmet>
-      <ThemeProvider>
-        <InteropProvider value={intentsProvider}>
-          <ReduxProvider store={store}>
-            <PlatformProvider value={platform}>
-              <React.Fragment>
-                <GlobalScrollbarStyle />
-                <Router />
-              </React.Fragment>
-            </PlatformProvider>
-          </ReduxProvider>
-        </InteropProvider>
-      </ThemeProvider>
+      <LocaleProvider>
+        <ThemeProvider>
+          <InteropProvider value={intentsProvider}>
+            <ReduxProvider store={store}>
+              <PlatformProvider value={platform}>
+                <React.Fragment>
+                  <GlobalScrollbarStyle />
+                  <Router />
+                </React.Fragment>
+              </PlatformProvider>
+            </ReduxProvider>
+          </InteropProvider>
+        </ThemeProvider>
+      </LocaleProvider>
     </React.Fragment>
   )
 }

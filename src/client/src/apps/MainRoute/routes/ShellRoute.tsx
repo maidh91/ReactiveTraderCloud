@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { Resizer, TearOff } from 'rt-components'
@@ -12,6 +13,7 @@ import { analyticsSelector, blotterSelector, liveRatesSelector, DefaultLayout } 
 import { BlotterWrapper, AnalyticsWrapper, OverflowScroll, WorkspaceWrapper } from './styled'
 import UsersModal from '../components/users-modal'
 import ContactUsButton from '../widgets/contact-us'
+import { LocaleSelection } from 'rt-intl'
 
 interface Props {
   header?: React.ReactChild
@@ -23,8 +25,8 @@ const addLayoutToConfig = (windowConfig: ExternalWindow, layout: WindowPosition)
     config: {
       ...windowConfig.config,
       x: layout.x,
-      y: layout.y
-    }
+      y: layout.y,
+    },
   }
 }
 
@@ -106,6 +108,7 @@ const ShellRoute: React.FC<Props> = ({ header }) => {
     <StatusBar>
       <ContactUsButton />
       <StatusButton />
+      <LocaleSelection />
     </StatusBar>
   )
 

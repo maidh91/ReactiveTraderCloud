@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { AgGridReact } from 'ag-grid-react'
 import { GridApi } from 'ag-grid-community'
 // tslint:disable-next-line:no-submodule-imports
@@ -11,9 +12,9 @@ import BlotterHeader from './BlotterHeader'
 import { columnDefinitions, DEFAULT_COLUMN_DEFINITION, csvExportSettings } from './blotterUtils'
 
 export interface BlotterProps {
-  rows: Trade[]
-  canPopout: boolean
-  onPopoutClick?: (x: number, y: number) => void
+  rows: Trade[],
+  canPopout: boolean,
+  onPopoutClick?: (x: number, y: number) => void,
 }
 
 const BlotterStyle = styled('div')`
@@ -44,7 +45,7 @@ const icons = {
   menu: '<i class="fas fa-filter" aria-hidden="true" />',
   filter: '<i class="fas fa-filter" aria-hidden="true" />',
   sortAscending: '<i class="fas fa-long-arrow-alt-up" aria-hidden="true" />',
-  sortDescending: '<i class="fas fa-long-arrow-alt-down" aria-hidden="true" />'
+  sortDescending: '<i class="fas fa-long-arrow-alt-down" aria-hidden="true" />',
 }
 
 const getRowClass = ({ data }: { data: Trade }) => {
@@ -61,8 +62,20 @@ const getRowClass = ({ data }: { data: Trade }) => {
   return cssClass
 }
 
+const navItems = {
+  positions: {
+    value: 'positions',
+    text: 'Open Positions',
+  },
+  history: {
+    value: 'history',
+    text: 'History',
+  },
+}
+
 const Blotter: React.FC<BlotterProps> = props => {
   const { canPopout, rows } = props
+  const [navItem, setNavItem] = useState(navItems.positions.value)
   const [displayedRows, setDisplayedRows] = useState(0)
   const [gridDoc] = useState(React.createRef<HTMLDivElement>())
   const [gridApi, setGridApi] = useState<GridApi>()
@@ -114,24 +127,30 @@ const Blotter: React.FC<BlotterProps> = props => {
         onPopoutClick={onPopoutClick}
         onExportToExcelClick={exportToExcel}
         gridApi={gridApi}
+        navItems={navItems}
+        navItem={navItem}
+        setNavItem={setNavItem}
       />
       <BlotterGrid ref={gridDoc}>
-        <AgGridReact
-          columnDefs={columnDefinitions}
-          defaultColDef={DEFAULT_COLUMN_DEFINITION}
-          rowData={rows}
-          suppressMovableColumns
-          rowSelection="multiple"
-          suppressDragLeaveHidesColumns
-          getRowClass={getRowClass}
-          onRowClicked={params => broadcastContext(params.data.symbol)}
-          headerHeight={38}
-          rowHeight={28}
-          onModelUpdated={onModelUpdated}
-          onGridReady={onGridReady}
-          icons={icons}
-          getDocument={getDocument}
-        />
+        {navItem === navItems.positions.value && <div>TODO: render open positions</div>}
+        {navItem === navItems.history.value && (
+          <AgGridReact
+            columnDefs={columnDefinitions}
+            defaultColDef={DEFAULT_COLUMN_DEFINITION}
+            rowData={rows}
+            suppressMovableColumns
+            rowSelection="multiple"
+            suppressDragLeaveHidesColumns
+            getRowClass={getRowClass}
+            onRowClicked={params => broadcastContext(params.data.symbol)}
+            headerHeight={38}
+            rowHeight={28}
+            onModelUpdated={onModelUpdated}
+            onGridReady={onGridReady}
+            icons={icons}
+            getDocument={getDocument}
+          />
+        )}
       </BlotterGrid>
       <BlotterStatus>
         <BlotterStatusText data-qa="blotter__blotter-status-text">

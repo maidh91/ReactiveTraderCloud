@@ -19,6 +19,7 @@ module.exports = ({ config }) => {
     'rt-styleguide': path.resolve(__dirname, '../src', 'rt-styleguide'),
     'rt-theme': path.resolve(__dirname, '../src', 'rt-theme'),
     'rt-system': path.resolve(__dirname, '../src', 'rt-system'),
+    'rt-intl': path.resolve(__dirname, '../src', 'rt-intl'),
     ui: path.resolve(__dirname, '../src', 'ui'),
     system: path.resolve(__dirname, '../src', 'system'),
     shell: path.resolve(__dirname, '../src', 'shell'),

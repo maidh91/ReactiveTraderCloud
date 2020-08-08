@@ -1,11 +1,13 @@
 /* eslint-disable */
-import React, { useCallback, useState, FC, MouseEvent } from 'react'
+import React, { useCallback, useState, FC, MouseEvent, useEffect } from 'react'
 import { GridApi } from 'ag-grid-community'
 import { flexStyle, PopoutIcon } from 'rt-components'
 import { styled } from 'rt-theme'
 import { columnDefinitions } from './blotterUtils'
 import BlotterToolbar from './toolbar/BlotterToolbar'
 import ExcelButton from './toolbar/ExcelButton'
+import intl from 'react-intl-universal';
+import { loadLocales } from 'rt-intl'
 
 interface Props {
   canPopout: boolean,
@@ -89,6 +91,14 @@ const BlotterHeader: FC<Props> = ({
   navItem,
   setNavItem,
 }) => {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    loadLocales({
+      path: 'blotter',
+      onSuccess: () => setLoading(false),
+    });
+  }, []);
+
   const popoutClickHandler = useCallback(
     (event: MouseEvent) => {
       onPopoutClick(event.screenX, event.screenY)
@@ -121,12 +131,13 @@ const BlotterHeader: FC<Props> = ({
     gridApi,
   ])
 
+  if (loading) return <div>Loading...</div>;
   return (
     <BlotterHeaderStyle>
       <BlotterLeft>
         {Object.keys(navItems).map(value => (
           <NavItem key={value} active={navItem === value} onClick={() => setNavItem(value)}>
-            {navItems[value].text}
+            {intl.get(navItems[value])}
           </NavItem>
         ))}
       </BlotterLeft>

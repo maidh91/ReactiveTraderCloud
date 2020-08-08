@@ -4,3 +4,6 @@ export {
 export {
   default as LocaleSelection,
 } from './LocaleSelection';
+export {
+  default as loadLocales,
+} from './LocaleHelpers';

@@ -5,6 +5,11 @@ const LocaleOptions = [
     flag: 'us',
   },
   {
+    text: 'Tiếng Việt',
+    value: 'vi-VN',
+    flag: 'vn',
+  },
+  {
     text: '简体中文',
     value: 'zh-CN',
     flag: 'cn',
@@ -15,14 +20,14 @@ const LocaleOptions = [
     flag: 'tw',
   },
   {
-    text: 'français',
-    value: 'fr-FR',
-    flag: 'fr',
-  },
-  {
     text: '日本の',
     value: 'ja-JP',
     flag: 'jp',
+  },
+  {
+    text: 'Français',
+    value: 'fr-FR',
+    flag: 'fr',
   },
 ];
 

@@ -25,7 +25,9 @@ const LocaleSelection = () => {
         selection
         options={LocaleOptions}
         value={getCurrentLocale()}
-        onChange={onSelectLocale}
+        onChange={(e, {
+          value,
+        }) => onSelectLocale(value)}
       />
     </div>
   );

@@ -63,19 +63,13 @@ const getRowClass = ({ data }: { data: Trade }) => {
 }
 
 const navItems = {
-  positions: {
-    value: 'positions',
-    text: 'Open Positions',
-  },
-  history: {
-    value: 'history',
-    text: 'History',
-  },
+  positions: 'positions',
+  history: 'history',
 }
 
 const Blotter: React.FC<BlotterProps> = props => {
   const { canPopout, rows } = props
-  const [navItem, setNavItem] = useState(navItems.positions.value)
+  const [navItem, setNavItem] = useState(navItems.positions)
   const [displayedRows, setDisplayedRows] = useState(0)
   const [gridDoc] = useState(React.createRef<HTMLDivElement>())
   const [gridApi, setGridApi] = useState<GridApi>()
@@ -132,8 +126,8 @@ const Blotter: React.FC<BlotterProps> = props => {
         setNavItem={setNavItem}
       />
       <BlotterGrid ref={gridDoc}>
-        {navItem === navItems.positions.value && <div>TODO: render open positions</div>}
-        {navItem === navItems.history.value && (
+        {navItem === navItems.positions && <div>TODO: render open positions</div>}
+        {navItem === navItems.history && (
           <AgGridReact
             columnDefs={columnDefinitions}
             defaultColDef={DEFAULT_COLUMN_DEFINITION}
